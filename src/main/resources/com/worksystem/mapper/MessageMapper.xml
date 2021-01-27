@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksystem.mapper.MessageMapper">
+    <resultMap id="BaseResultMap" type="com.worksystem.entity.Message">
+        <id column="mid" jdbcType="INTEGER" property="mid"/>
+        <result column="mgid" jdbcType="INTEGER" property="mgid"/>
+        <result column="mwid" jdbcType="INTEGER" property="mwid"/>
+        <result column="msid" jdbcType="INTEGER" property="msid"/>
+        <result column="mtime" jdbcType="DATE" property="mtime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.worksystem.entity.Message">
+        <result column="mcontent" jdbcType="LONGVARCHAR" property="mcontent"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    mid, mgid, mwid, msid, mtime
+  </sql>
+    <sql id="Blob_Column_List">
+    mcontent
+  </sql>
+    <select id="selectByExampleWithBLOBs" parameterType="com.worksystem.entity.MessageExample"
+            resultMap="ResultMapWithBLOBs">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from message
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" parameterType="com.worksystem.entity.MessageExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from message
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from message
+        where mid = #{mid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where mid = #{mid,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.worksystem.entity.MessageExample">
+        delete from message
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.worksystem.entity.Message">
+    insert into message (mid, mgid, mwid, 
+      msid, mtime, mcontent
+      )
+    values (#{mid,jdbcType=INTEGER}, #{mgid,jdbcType=INTEGER}, #{mwid,jdbcType=INTEGER}, 
+      #{msid,jdbcType=INTEGER}, #{mtime,jdbcType=DATE}, #{mcontent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.worksystem.entity.Message">
+        insert into message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mid != null">
+                mid,
+            </if>
+            <if test="mgid != null">
+                mgid,
+            </if>
+            <if test="mwid != null">
+                mwid,
+            </if>
+            <if test="msid != null">
+                msid,
+            </if>
+            <if test="mtime != null">
+                mtime,
+            </if>
+            <if test="mcontent != null">
+                mcontent,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mid != null">
+                #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="mgid != null">
+                #{mgid,jdbcType=INTEGER},
+            </if>
+            <if test="mwid != null">
+                #{mwid,jdbcType=INTEGER},
+            </if>
+            <if test="msid != null">
+                #{msid,jdbcType=INTEGER},
+            </if>
+            <if test="mtime != null">
+                #{mtime,jdbcType=DATE},
+            </if>
+            <if test="mcontent != null">
+                #{mcontent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.worksystem.entity.MessageExample" resultType="java.lang.Long">
+        select count(*) from message
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="selectMoreTableExample" parameterType="com.worksystem.entity.MessageExample" resultType="java.util.Map">
+        select message.*,work.wname,student.snumber,student.sname,grade.gname
+        from message
+        inner join work
+        on mwid=wid
+        inner join student
+        on msid=sid
+        inner join grade
+        on mgid=gid
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectFewTableExample" resultType="java.util.Map">
+        select message.*,work.wname,student.snumber,student.sname
+        from message
+        inner join work
+        on mwid=wid
+        inner join student
+        on msid=sid
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause">
+            order by ${orderByClause}
+        </if>
+     </select>
+    <select id="selectMoreTableLimit" parameterType="map" resultType="java.util.Map">
+        select message.*,work.wname,student.snumber,student.sname,grade.gname
+        from message
+        inner join work
+        on mwid=wid
+        inner join student
+        on msid=sid
+        inner join grade
+        on mgid=gid
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+        <if test="example.orderByClause">
+            order by ${example.orderByClause}
+        </if>
+        limit #{pageSet.start},#{pageSet.pageSize}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update message
+        <set>
+            <if test="record.mid != null">
+                mid = #{record.mid,jdbcType=INTEGER},
+            </if>
+            <if test="record.mgid != null">
+                mgid = #{record.mgid,jdbcType=INTEGER},
+            </if>
+            <if test="record.mwid != null">
+                mwid = #{record.mwid,jdbcType=INTEGER},
+            </if>
+            <if test="record.msid != null">
+                msid = #{record.msid,jdbcType=INTEGER},
+            </if>
+            <if test="record.mtime != null">
+                mtime = #{record.mtime,jdbcType=DATE},
+            </if>
+            <if test="record.mcontent != null">
+                mcontent = #{record.mcontent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update message
+        set mid = #{record.mid,jdbcType=INTEGER},
+        mgid = #{record.mgid,jdbcType=INTEGER},
+        mwid = #{record.mwid,jdbcType=INTEGER},
+        msid = #{record.msid,jdbcType=INTEGER},
+        mtime = #{record.mtime,jdbcType=DATE},
+        mcontent = #{record.mcontent,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update message
+        set mid = #{record.mid,jdbcType=INTEGER},
+        mgid = #{record.mgid,jdbcType=INTEGER},
+        mwid = #{record.mwid,jdbcType=INTEGER},
+        msid = #{record.msid,jdbcType=INTEGER},
+        mtime = #{record.mtime,jdbcType=DATE}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.worksystem.entity.Message">
+        update message
+        <set>
+            <if test="mgid != null">
+                mgid = #{mgid,jdbcType=INTEGER},
+            </if>
+            <if test="mwid != null">
+                mwid = #{mwid,jdbcType=INTEGER},
+            </if>
+            <if test="msid != null">
+                msid = #{msid,jdbcType=INTEGER},
+            </if>
+            <if test="mtime != null">
+                mtime = #{mtime,jdbcType=DATE},
+            </if>
+            <if test="mcontent != null">
+                mcontent = #{mcontent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where mid = #{mid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.worksystem.entity.Message">
+    update message
+    set mgid = #{mgid,jdbcType=INTEGER},
+      mwid = #{mwid,jdbcType=INTEGER},
+      msid = #{msid,jdbcType=INTEGER},
+      mtime = #{mtime,jdbcType=DATE},
+      mcontent = #{mcontent,jdbcType=LONGVARCHAR}
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.worksystem.entity.Message">
+    update message
+    set mgid = #{mgid,jdbcType=INTEGER},
+      mwid = #{mwid,jdbcType=INTEGER},
+      msid = #{msid,jdbcType=INTEGER},
+      mtime = #{mtime,jdbcType=DATE}
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+</mapper>

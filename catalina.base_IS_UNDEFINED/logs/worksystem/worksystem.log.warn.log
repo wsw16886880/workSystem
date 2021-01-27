@@ -1,0 +1,2 @@
+2020-09-17T18:03:48.250+08:00 WARN worksystem [main] [com.mchange.v2.resourcepool.BasicResourcePool:220] Bad pool size config, start 3 < min 10. Using 10 as start.
+2020-09-17T18:20:37.592+08:00 WARN worksystem [main] [com.mchange.v2.resourcepool.BasicResourcePool:220] Bad pool size config, start 3 < min 10. Using 10 as start.

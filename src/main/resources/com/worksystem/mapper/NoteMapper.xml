@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksystem.mapper.NoteMapper">
+    <resultMap id="BaseResultMap" type="com.worksystem.entity.Note">
+        <id column="nid" jdbcType="INTEGER" property="nid"/>
+        <result column="nsjid" jdbcType="INTEGER" property="nsjid"/>
+        <result column="nwid" jdbcType="INTEGER" property="nwid"/>
+        <result column="ntitle" jdbcType="VARCHAR" property="ntitle"/>
+        <result column="nfrom" jdbcType="VARCHAR" property="nfrom"/>
+        <result column="nweek" jdbcType="INTEGER" property="nweek"/>
+        <result column="ncontent" jdbcType="VARCHAR" property="ncontent"/>
+        <result column="ndate" jdbcType="DATE" property="ndate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    nid, nsjid, nwid, ntitle, nfrom, nweek, ncontent, ndate
+  </sql>
+    <select id="selectByExample" parameterType="com.worksystem.entity.NoteExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from note
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from note
+        where nid = #{nid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from note
+    where nid = #{nid,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.worksystem.entity.NoteExample">
+        delete from note
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.worksystem.entity.Note">
+    insert into note (nid, nsjid, nwid, 
+      ntitle, nfrom, nweek, 
+      ncontent, ndate)
+    values (#{nid,jdbcType=INTEGER}, #{nsjid,jdbcType=INTEGER}, #{nwid,jdbcType=INTEGER}, 
+      #{ntitle,jdbcType=VARCHAR}, #{nfrom,jdbcType=VARCHAR}, #{nweek,jdbcType=INTEGER}, 
+      #{ncontent,jdbcType=VARCHAR}, #{ndate,jdbcType=DATE})
+  </insert>
+    <insert id="insertSelective" parameterType="com.worksystem.entity.Note">
+        insert into note
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nid != null">
+                nid,
+            </if>
+            <if test="nsjid != null">
+                nsjid,
+            </if>
+            <if test="nwid != null">
+                nwid,
+            </if>
+            <if test="ntitle != null">
+                ntitle,
+            </if>
+            <if test="nfrom != null">
+                nfrom,
+            </if>
+            <if test="nweek != null">
+                nweek,
+            </if>
+            <if test="ncontent != null">
+                ncontent,
+            </if>
+            <if test="ndate != null">
+                ndate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nid != null">
+                #{nid,jdbcType=INTEGER},
+            </if>
+            <if test="nsjid != null">
+                #{nsjid,jdbcType=INTEGER},
+            </if>
+            <if test="nwid != null">
+                #{nwid,jdbcType=INTEGER},
+            </if>
+            <if test="ntitle != null">
+                #{ntitle,jdbcType=VARCHAR},
+            </if>
+            <if test="nfrom != null">
+                #{nfrom,jdbcType=VARCHAR},
+            </if>
+            <if test="nweek != null">
+                #{nweek,jdbcType=INTEGER},
+            </if>
+            <if test="ncontent != null">
+                #{ncontent,jdbcType=VARCHAR},
+            </if>
+            <if test="ndate != null">
+                #{ndate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.worksystem.entity.NoteExample" resultType="java.lang.Long">
+        select count(*) from note
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="selectMoreTable" resultType="java.util.Map">
+        select *
+        from note
+        inner join subject
+        on nsjid=sjid
+        left join work
+        on nwid=wid
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectMoreTableBySjgid" resultType="java.util.Map">
+        select *
+        from note
+        inner join subject
+        on nsjid=sjid
+        left join work
+        on nwid=wid
+        where sjgid=#{gid}
+        order by nid desc
+  </select>
+    <select id="selectNoteByGidSemester" resultType="java.util.Map">
+        select note.*,subject.sjsemester,subject.sjname,work.wname
+        from note
+        inner join work
+        on wid=nwid
+        inner join subject
+        on nsjid=sjid
+        where
+        wgid = #{wgid} and sjsemester between #{semester_one} and #{semester_two}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update note
+        <set>
+            <if test="record.nid != null">
+                nid = #{record.nid,jdbcType=INTEGER},
+            </if>
+            <if test="record.nsjid != null">
+                nsjid = #{record.nsjid,jdbcType=INTEGER},
+            </if>
+            <if test="record.nwid != null">
+                nwid = #{record.nwid,jdbcType=INTEGER},
+            </if>
+            <if test="record.ntitle != null">
+                ntitle = #{record.ntitle,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nfrom != null">
+                nfrom = #{record.nfrom,jdbcType=VARCHAR},
+            </if>
+            <if test="record.nweek != null">
+                nweek = #{record.nweek,jdbcType=INTEGER},
+            </if>
+            <if test="record.ncontent != null">
+                ncontent = #{record.ncontent,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ndate != null">
+                ndate = #{record.ndate,jdbcType=DATE},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update note
+        set nid = #{record.nid,jdbcType=INTEGER},
+        nsjid = #{record.nsjid,jdbcType=INTEGER},
+        nwid = #{record.nwid,jdbcType=INTEGER},
+        ntitle = #{record.ntitle,jdbcType=VARCHAR},
+        nfrom = #{record.nfrom,jdbcType=VARCHAR},
+        nweek = #{record.nweek,jdbcType=INTEGER},
+        ncontent = #{record.ncontent,jdbcType=VARCHAR},
+        ndate = #{record.ndate,jdbcType=DATE}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.worksystem.entity.Note">
+        update note
+        <set>
+            <if test="nsjid != null">
+                nsjid = #{nsjid,jdbcType=INTEGER},
+            </if>
+            <if test="nwid != null">
+                nwid = #{nwid,jdbcType=INTEGER},
+            </if>
+            <if test="ntitle != null">
+                ntitle = #{ntitle,jdbcType=VARCHAR},
+            </if>
+            <if test="nfrom != null">
+                nfrom = #{nfrom,jdbcType=VARCHAR},
+            </if>
+            <if test="nweek != null">
+                nweek = #{nweek,jdbcType=INTEGER},
+            </if>
+            <if test="ncontent != null">
+                ncontent = #{ncontent,jdbcType=VARCHAR},
+            </if>
+            <if test="ndate != null">
+                ndate = #{ndate,jdbcType=DATE},
+            </if>
+        </set>
+        where nid = #{nid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.worksystem.entity.Note">
+    update note
+    set nsjid = #{nsjid,jdbcType=INTEGER},
+      nwid = #{nwid,jdbcType=INTEGER},
+      ntitle = #{ntitle,jdbcType=VARCHAR},
+      nfrom = #{nfrom,jdbcType=VARCHAR},
+      nweek = #{nweek,jdbcType=INTEGER},
+      ncontent = #{ncontent,jdbcType=VARCHAR},
+      ndate = #{ndate,jdbcType=DATE}
+    where nid = #{nid,jdbcType=INTEGER}
+  </update>
+</mapper>

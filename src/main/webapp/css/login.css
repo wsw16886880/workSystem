@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+*{padding:0;margin: 0;}
+li{list-style: none;}
+a{text-decoration: none;color: #666;}
+a:hover{color: #09f;}
+#header{height: 104px;width: 80%;margin: auto;}
+#logo{margin-top: 25px;}
+#user{float: right;display: block;text-align: center;font-size: 12px;margin-top: -65px;}
+#user li{float: left;margin: auto;margin-left: 15px;}
+#login_select{float: right;font-size: 18px;margin-top: -35px;}
+#login_select li{float: left;margin-left: 25px;}
+#login_banner{width: auto; height: 520px;position: relative;overflow: hidden;}
+#login_banner img{position: absolute;left: 0;width: 100%;height: 100%;}
+#login_wrap_form{float: right;position: relative;height: 460px;width: 360px;margin-right: 153px;margin-top: -490px;background-color: rgba(255,255,255,1.00)}
+#title{margin-top: 45px;font-size: 18px;margin-left: 36%;}
+#title p{float: left;cursor: pointer;}
+#title p:hover{color: #09f;}
+#title p:last-child{padding-left: 20px;}
+#first{padding-right: 20px; border-right: solid #C1C1C1;color: #09f;}
+#fo{margin-top: 120px;padding-left: 27px;height: 240px;}
+#fo input{width: 90%;height: 40px;border-radius: 5px;border-style: none;border: 1px solid #dcdfe6;line-height: 40px;}
+#fo input:focus{border-color: #09f;outline: none;transition: 0.5s;}
+#text{margin-bottom: 35px;text-indent: 1em;}
+#password{margin-bottom: 47px;text-indent: 1em;}
+#submit{background-color: #09f;color: white;}
+#wjmm{font-size: 12px;margin-top: 2px;}
+#ljzc{font-size: 12px;float: right;margin-right: 34px;margin-top: -15px;}
+#footer{margin-top: 60px;border-top: 1px solid #edece8;}
+#footer>img{margin-left: 240px;margin-top: 30px;}
+#footer_text{float: right;margin-top: 35px;margin-right: 240px;}
+#list li{line-height: auto; float: left; border-right: 1px solid #666;margin-right: 10px;padding-right: 10px;font-size: 12px;}
+#list li:last-child{border: none;}
+#footer_text p{font-size: 12px;margin-top: 10px;color: #999;}
+#footer_text a{color: #999;}
+#footer_text a:hover{color: #09f;}

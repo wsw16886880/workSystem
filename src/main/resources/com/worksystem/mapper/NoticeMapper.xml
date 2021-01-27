@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksystem.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.worksystem.entity.Notice">
+    <id column="nid" jdbcType="INTEGER" property="nid" />
+    <result column="ntitle" jdbcType="VARCHAR" property="ntitle" />
+    <result column="nfrom" jdbcType="VARCHAR" property="nfrom" />
+    <result column="ndate" jdbcType="DATE" property="ndate" />
+    <result column="naid" jdbcType="INTEGER" property="naid" />
+    <result column="ngid" jdbcType="INTEGER" property="ngid" />
+    <result column="ntype" jdbcType="INTEGER" property="ntype" />
+    <result column="nemergency" jdbcType="INTEGER" property="nemergency" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.worksystem.entity.Notice">
+    <result column="ncontent" jdbcType="LONGVARCHAR" property="ncontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    nid, ntitle, nfrom, ndate, naid, ngid, ntype, nemergency
+  </sql>
+  <sql id="Blob_Column_List">
+    ncontent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.worksystem.entity.NoticeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.worksystem.entity.NoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    where nid = #{nid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice
+    where nid = #{nid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.worksystem.entity.NoticeExample">
+    delete from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.worksystem.entity.Notice">
+    insert into notice (nid, ntitle, nfrom, 
+      ndate, naid, ngid, ntype, 
+      nemergency, ncontent)
+    values (#{nid,jdbcType=INTEGER}, #{ntitle,jdbcType=VARCHAR}, #{nfrom,jdbcType=VARCHAR}, 
+      #{ndate,jdbcType=DATE}, #{naid,jdbcType=INTEGER}, #{ngid,jdbcType=INTEGER}, #{ntype,jdbcType=INTEGER}, 
+      #{nemergency,jdbcType=INTEGER}, #{ncontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worksystem.entity.Notice">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nid != null">
+        nid,
+      </if>
+      <if test="ntitle != null">
+        ntitle,
+      </if>
+      <if test="nfrom != null">
+        nfrom,
+      </if>
+      <if test="ndate != null">
+        ndate,
+      </if>
+      <if test="naid != null">
+        naid,
+      </if>
+      <if test="ngid != null">
+        ngid,
+      </if>
+      <if test="ntype != null">
+        ntype,
+      </if>
+      <if test="nemergency != null">
+        nemergency,
+      </if>
+      <if test="ncontent != null">
+        ncontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nid != null">
+        #{nid,jdbcType=INTEGER},
+      </if>
+      <if test="ntitle != null">
+        #{ntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="nfrom != null">
+        #{nfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="ndate != null">
+        #{ndate,jdbcType=DATE},
+      </if>
+      <if test="naid != null">
+        #{naid,jdbcType=INTEGER},
+      </if>
+      <if test="ngid != null">
+        #{ngid,jdbcType=INTEGER},
+      </if>
+      <if test="ntype != null">
+        #{ntype,jdbcType=INTEGER},
+      </if>
+      <if test="nemergency != null">
+        #{nemergency,jdbcType=INTEGER},
+      </if>
+      <if test="ncontent != null">
+        #{ncontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.worksystem.entity.NoticeExample" resultType="java.lang.Long">
+    select count(*) from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectNoticeAndGrade" parameterType="com.worksystem.entity.NoticeExample" resultType="java.util.Map">
+    select *
+    from notice
+    inner join grade
+    on ngid=gid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update notice
+    <set>
+      <if test="record.nid != null">
+        nid = #{record.nid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ntitle != null">
+        ntitle = #{record.ntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nfrom != null">
+        nfrom = #{record.nfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ndate != null">
+        ndate = #{record.ndate,jdbcType=DATE},
+      </if>
+      <if test="record.naid != null">
+        naid = #{record.naid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ngid != null">
+        ngid = #{record.ngid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ntype != null">
+        ntype = #{record.ntype,jdbcType=INTEGER},
+      </if>
+      <if test="record.nemergency != null">
+        nemergency = #{record.nemergency,jdbcType=INTEGER},
+      </if>
+      <if test="record.ncontent != null">
+        ncontent = #{record.ncontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update notice
+    set nid = #{record.nid,jdbcType=INTEGER},
+      ntitle = #{record.ntitle,jdbcType=VARCHAR},
+      nfrom = #{record.nfrom,jdbcType=VARCHAR},
+      ndate = #{record.ndate,jdbcType=DATE},
+      naid = #{record.naid,jdbcType=INTEGER},
+      ngid = #{record.ngid,jdbcType=INTEGER},
+      ntype = #{record.ntype,jdbcType=INTEGER},
+      nemergency = #{record.nemergency,jdbcType=INTEGER},
+      ncontent = #{record.ncontent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update notice
+    set nid = #{record.nid,jdbcType=INTEGER},
+      ntitle = #{record.ntitle,jdbcType=VARCHAR},
+      nfrom = #{record.nfrom,jdbcType=VARCHAR},
+      ndate = #{record.ndate,jdbcType=DATE},
+      naid = #{record.naid,jdbcType=INTEGER},
+      ngid = #{record.ngid,jdbcType=INTEGER},
+      ntype = #{record.ntype,jdbcType=INTEGER},
+      nemergency = #{record.nemergency,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worksystem.entity.Notice">
+    update notice
+    <set>
+      <if test="ntitle != null">
+        ntitle = #{ntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="nfrom != null">
+        nfrom = #{nfrom,jdbcType=VARCHAR},
+      </if>
+      <if test="ndate != null">
+        ndate = #{ndate,jdbcType=DATE},
+      </if>
+      <if test="naid != null">
+        naid = #{naid,jdbcType=INTEGER},
+      </if>
+      <if test="ngid != null">
+        ngid = #{ngid,jdbcType=INTEGER},
+      </if>
+      <if test="ntype != null">
+        ntype = #{ntype,jdbcType=INTEGER},
+      </if>
+      <if test="nemergency != null">
+        nemergency = #{nemergency,jdbcType=INTEGER},
+      </if>
+      <if test="ncontent != null">
+        ncontent = #{ncontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where nid = #{nid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.worksystem.entity.Notice">
+    update notice
+    set ntitle = #{ntitle,jdbcType=VARCHAR},
+      nfrom = #{nfrom,jdbcType=VARCHAR},
+      ndate = #{ndate,jdbcType=DATE},
+      naid = #{naid,jdbcType=INTEGER},
+      ngid = #{ngid,jdbcType=INTEGER},
+      ntype = #{ntype,jdbcType=INTEGER},
+      nemergency = #{nemergency,jdbcType=INTEGER},
+      ncontent = #{ncontent,jdbcType=LONGVARCHAR}
+    where nid = #{nid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worksystem.entity.Notice">
+    update notice
+    set ntitle = #{ntitle,jdbcType=VARCHAR},
+      nfrom = #{nfrom,jdbcType=VARCHAR},
+      ndate = #{ndate,jdbcType=DATE},
+      naid = #{naid,jdbcType=INTEGER},
+      ngid = #{ngid,jdbcType=INTEGER},
+      ntype = #{ntype,jdbcType=INTEGER},
+      nemergency = #{nemergency,jdbcType=INTEGER}
+    where nid = #{nid,jdbcType=INTEGER}
+  </update>
+</mapper>

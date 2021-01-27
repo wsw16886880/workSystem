@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksystem.mapper.LateMapper">
+  <resultMap id="BaseResultMap" type="com.worksystem.entity.Late">
+    <id column="lid" jdbcType="INTEGER" property="lid" />
+    <result column="ltid" jdbcType="INTEGER" property="ltid" />
+    <result column="lsid" jdbcType="INTEGER" property="lsid" />
+    <result column="lgid" jdbcType="INTEGER" property="lgid" />
+    <result column="lsname" jdbcType="VARCHAR" property="lsname" />
+    <result column="lsnumber" jdbcType="VARCHAR" property="lsnumber" />
+    <result column="lname" jdbcType="VARCHAR" property="lname" />
+    <result column="lwid" jdbcType="INTEGER" property="lwid" />
+    <result column="issubmit" jdbcType="VARCHAR" property="issubmit" />
+    <result column="lweek" jdbcType="INTEGER" property="lweek" />
+    <result column="lsjid" jdbcType="INTEGER" property="lsjid" />
+    <result column="lsjname" jdbcType="VARCHAR" property="lsjname" />
+    <result column="ltype" jdbcType="VARCHAR" property="ltype" />
+    <result column="lfile" jdbcType="VARCHAR" property="lfile" />
+    <result column="ldate" jdbcType="DATE" property="ldate" />
+    <result column="ledate" jdbcType="TIMESTAMP" property="ledate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.worksystem.entity.Late">
+    <result column="lcontent" jdbcType="LONGVARCHAR" property="lcontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    lid, ltid, lsid, lgid, lsname, lsnumber, lname, lwid, issubmit, lweek, lsjid, lsjname, 
+    ltype, lfile, ldate, ledate
+  </sql>
+  <sql id="Blob_Column_List">
+    lcontent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.worksystem.entity.LateExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from late
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.worksystem.entity.LateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from late
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from late
+    where lid = #{lid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from late
+    where lid = #{lid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.worksystem.entity.LateExample">
+    delete from late
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.worksystem.entity.Late">
+    insert into late (lid, ltid, lsid, 
+      lgid, lsname, lsnumber, 
+      lname, lwid, issubmit, 
+      lweek, lsjid, lsjname, 
+      ltype, lfile, ldate, ledate, 
+      lcontent)
+    values (#{lid,jdbcType=INTEGER}, #{ltid,jdbcType=INTEGER}, #{lsid,jdbcType=INTEGER}, 
+      #{lgid,jdbcType=INTEGER}, #{lsname,jdbcType=VARCHAR}, #{lsnumber,jdbcType=VARCHAR}, 
+      #{lname,jdbcType=VARCHAR}, #{lwid,jdbcType=INTEGER}, #{issubmit,jdbcType=VARCHAR}, 
+      #{lweek,jdbcType=INTEGER}, #{lsjid,jdbcType=INTEGER}, #{lsjname,jdbcType=VARCHAR}, 
+      #{ltype,jdbcType=VARCHAR}, #{lfile,jdbcType=VARCHAR}, #{ldate,jdbcType=DATE}, #{ledate,jdbcType=TIMESTAMP}, 
+      #{lcontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worksystem.entity.Late">
+    insert into late
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lid != null">
+        lid,
+      </if>
+      <if test="ltid != null">
+        ltid,
+      </if>
+      <if test="lsid != null">
+        lsid,
+      </if>
+      <if test="lgid != null">
+        lgid,
+      </if>
+      <if test="lsname != null">
+        lsname,
+      </if>
+      <if test="lsnumber != null">
+        lsnumber,
+      </if>
+      <if test="lname != null">
+        lname,
+      </if>
+      <if test="lwid != null">
+        lwid,
+      </if>
+      <if test="issubmit != null">
+        issubmit,
+      </if>
+      <if test="lweek != null">
+        lweek,
+      </if>
+      <if test="lsjid != null">
+        lsjid,
+      </if>
+      <if test="lsjname != null">
+        lsjname,
+      </if>
+      <if test="ltype != null">
+        ltype,
+      </if>
+      <if test="lfile != null">
+        lfile,
+      </if>
+      <if test="ldate != null">
+        ldate,
+      </if>
+      <if test="ledate != null">
+        ledate,
+      </if>
+      <if test="lcontent != null">
+        lcontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lid != null">
+        #{lid,jdbcType=INTEGER},
+      </if>
+      <if test="ltid != null">
+        #{ltid,jdbcType=INTEGER},
+      </if>
+      <if test="lsid != null">
+        #{lsid,jdbcType=INTEGER},
+      </if>
+      <if test="lgid != null">
+        #{lgid,jdbcType=INTEGER},
+      </if>
+      <if test="lsname != null">
+        #{lsname,jdbcType=VARCHAR},
+      </if>
+      <if test="lsnumber != null">
+        #{lsnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lname != null">
+        #{lname,jdbcType=VARCHAR},
+      </if>
+      <if test="lwid != null">
+        #{lwid,jdbcType=INTEGER},
+      </if>
+      <if test="issubmit != null">
+        #{issubmit,jdbcType=VARCHAR},
+      </if>
+      <if test="lweek != null">
+        #{lweek,jdbcType=INTEGER},
+      </if>
+      <if test="lsjid != null">
+        #{lsjid,jdbcType=INTEGER},
+      </if>
+      <if test="lsjname != null">
+        #{lsjname,jdbcType=VARCHAR},
+      </if>
+      <if test="ltype != null">
+        #{ltype,jdbcType=VARCHAR},
+      </if>
+      <if test="lfile != null">
+        #{lfile,jdbcType=VARCHAR},
+      </if>
+      <if test="ldate != null">
+        #{ldate,jdbcType=DATE},
+      </if>
+      <if test="ledate != null">
+        #{ledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lcontent != null">
+        #{lcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.worksystem.entity.LateExample" resultType="java.lang.Long">
+    select count(*) from late
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectMoreTableBySemester" resultType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    subject.sjsemester, work.wfile
+    from late
+    inner join subject
+    on lsjid=sjid
+    inner join work
+    on lwid=wid
+    where lsid=#{sid} and sjsemester between #{semester_one} and #{semester_two}
+    order by lsid desc
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update late
+    <set>
+      <if test="record.lid != null">
+        lid = #{record.lid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltid != null">
+        ltid = #{record.ltid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lsid != null">
+        lsid = #{record.lsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lgid != null">
+        lgid = #{record.lgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lsname != null">
+        lsname = #{record.lsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lsnumber != null">
+        lsnumber = #{record.lsnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lname != null">
+        lname = #{record.lname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lwid != null">
+        lwid = #{record.lwid,jdbcType=INTEGER},
+      </if>
+      <if test="record.issubmit != null">
+        issubmit = #{record.issubmit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lweek != null">
+        lweek = #{record.lweek,jdbcType=INTEGER},
+      </if>
+      <if test="record.lsjid != null">
+        lsjid = #{record.lsjid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lsjname != null">
+        lsjname = #{record.lsjname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltype != null">
+        ltype = #{record.ltype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lfile != null">
+        lfile = #{record.lfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ldate != null">
+        ldate = #{record.ldate,jdbcType=DATE},
+      </if>
+      <if test="record.ledate != null">
+        ledate = #{record.ledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lcontent != null">
+        lcontent = #{record.lcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update late
+    set lid = #{record.lid,jdbcType=INTEGER},
+      ltid = #{record.ltid,jdbcType=INTEGER},
+      lsid = #{record.lsid,jdbcType=INTEGER},
+      lgid = #{record.lgid,jdbcType=INTEGER},
+      lsname = #{record.lsname,jdbcType=VARCHAR},
+      lsnumber = #{record.lsnumber,jdbcType=VARCHAR},
+      lname = #{record.lname,jdbcType=VARCHAR},
+      lwid = #{record.lwid,jdbcType=INTEGER},
+      issubmit = #{record.issubmit,jdbcType=VARCHAR},
+      lweek = #{record.lweek,jdbcType=INTEGER},
+      lsjid = #{record.lsjid,jdbcType=INTEGER},
+      lsjname = #{record.lsjname,jdbcType=VARCHAR},
+      ltype = #{record.ltype,jdbcType=VARCHAR},
+      lfile = #{record.lfile,jdbcType=VARCHAR},
+      ldate = #{record.ldate,jdbcType=DATE},
+      ledate = #{record.ledate,jdbcType=TIMESTAMP},
+      lcontent = #{record.lcontent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update late
+    set lid = #{record.lid,jdbcType=INTEGER},
+      ltid = #{record.ltid,jdbcType=INTEGER},
+      lsid = #{record.lsid,jdbcType=INTEGER},
+      lgid = #{record.lgid,jdbcType=INTEGER},
+      lsname = #{record.lsname,jdbcType=VARCHAR},
+      lsnumber = #{record.lsnumber,jdbcType=VARCHAR},
+      lname = #{record.lname,jdbcType=VARCHAR},
+      lwid = #{record.lwid,jdbcType=INTEGER},
+      issubmit = #{record.issubmit,jdbcType=VARCHAR},
+      lweek = #{record.lweek,jdbcType=INTEGER},
+      lsjid = #{record.lsjid,jdbcType=INTEGER},
+      lsjname = #{record.lsjname,jdbcType=VARCHAR},
+      ltype = #{record.ltype,jdbcType=VARCHAR},
+      lfile = #{record.lfile,jdbcType=VARCHAR},
+      ldate = #{record.ldate,jdbcType=DATE},
+      ledate = #{record.ledate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worksystem.entity.Late">
+    update late
+    <set>
+      <if test="ltid != null">
+        ltid = #{ltid,jdbcType=INTEGER},
+      </if>
+      <if test="lsid != null">
+        lsid = #{lsid,jdbcType=INTEGER},
+      </if>
+      <if test="lgid != null">
+        lgid = #{lgid,jdbcType=INTEGER},
+      </if>
+      <if test="lsname != null">
+        lsname = #{lsname,jdbcType=VARCHAR},
+      </if>
+      <if test="lsnumber != null">
+        lsnumber = #{lsnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lname != null">
+        lname = #{lname,jdbcType=VARCHAR},
+      </if>
+      <if test="lwid != null">
+        lwid = #{lwid,jdbcType=INTEGER},
+      </if>
+      <if test="issubmit != null">
+        issubmit = #{issubmit,jdbcType=VARCHAR},
+      </if>
+      <if test="lweek != null">
+        lweek = #{lweek,jdbcType=INTEGER},
+      </if>
+      <if test="lsjid != null">
+        lsjid = #{lsjid,jdbcType=INTEGER},
+      </if>
+      <if test="lsjname != null">
+        lsjname = #{lsjname,jdbcType=VARCHAR},
+      </if>
+      <if test="ltype != null">
+        ltype = #{ltype,jdbcType=VARCHAR},
+      </if>
+      <if test="lfile != null">
+        lfile = #{lfile,jdbcType=VARCHAR},
+      </if>
+      <if test="ldate != null">
+        ldate = #{ldate,jdbcType=DATE},
+      </if>
+      <if test="ledate != null">
+        ledate = #{ledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lcontent != null">
+        lcontent = #{lcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.worksystem.entity.Late">
+    update late
+    set ltid = #{ltid,jdbcType=INTEGER},
+      lsid = #{lsid,jdbcType=INTEGER},
+      lgid = #{lgid,jdbcType=INTEGER},
+      lsname = #{lsname,jdbcType=VARCHAR},
+      lsnumber = #{lsnumber,jdbcType=VARCHAR},
+      lname = #{lname,jdbcType=VARCHAR},
+      lwid = #{lwid,jdbcType=INTEGER},
+      issubmit = #{issubmit,jdbcType=VARCHAR},
+      lweek = #{lweek,jdbcType=INTEGER},
+      lsjid = #{lsjid,jdbcType=INTEGER},
+      lsjname = #{lsjname,jdbcType=VARCHAR},
+      ltype = #{ltype,jdbcType=VARCHAR},
+      lfile = #{lfile,jdbcType=VARCHAR},
+      ldate = #{ldate,jdbcType=DATE},
+      ledate = #{ledate,jdbcType=TIMESTAMP},
+      lcontent = #{lcontent,jdbcType=LONGVARCHAR}
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worksystem.entity.Late">
+    update late
+    set ltid = #{ltid,jdbcType=INTEGER},
+      lsid = #{lsid,jdbcType=INTEGER},
+      lgid = #{lgid,jdbcType=INTEGER},
+      lsname = #{lsname,jdbcType=VARCHAR},
+      lsnumber = #{lsnumber,jdbcType=VARCHAR},
+      lname = #{lname,jdbcType=VARCHAR},
+      lwid = #{lwid,jdbcType=INTEGER},
+      issubmit = #{issubmit,jdbcType=VARCHAR},
+      lweek = #{lweek,jdbcType=INTEGER},
+      lsjid = #{lsjid,jdbcType=INTEGER},
+      lsjname = #{lsjname,jdbcType=VARCHAR},
+      ltype = #{ltype,jdbcType=VARCHAR},
+      lfile = #{lfile,jdbcType=VARCHAR},
+      ldate = #{ldate,jdbcType=DATE},
+      ledate = #{ledate,jdbcType=TIMESTAMP}
+    where lid = #{lid,jdbcType=INTEGER}
+  </update>
+</mapper>

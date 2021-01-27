@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+*{padding:0;margin: 0;color: black;}
+li{list-style: none;}
+a{text-decoration: none;}
+a:hover{color: #5259B6;}
+span{font-size: 16px;color: red;}
+#title{								/*标题栏*/
+/*	border: 1px dashed red;*/
+	background-color: rgba(0,255,255,1.00);
+	font-size: 16px;
+	height: 28px;					/*27差不多*/
+}
+#title_ul{							/*暂时没屁用*/
+	width: auto;
+}
+.title_first{						/*一级标题*/
+	float: left;
+	border-right: 1px dotted red;
+	width: 100px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	cursor: context-menu;
+}
+.title_second{						/*二级标题*/
+	border: 1px solid green;
+	display: none;
+	width: 150px;
+	text-align: left;
+}
+.title_first:hover .title_second{
+	display: block;
+	background-color: aliceblue;
+	position: relative;
+}
+
+
+#table{
+	margin-top: 10px;
+}
+.two{
+	background-color: antiquewhite;
+}
+.week{
+	padding: 5px;
+	height: 20px;
+}
+.week span{
+	margin-left: 5px;
+	float: left;
+}
+.week form{
+	margin-left: 95px;
+}
+.list,.content{
+	width: 100px;
+	text-align: center;
+}
+#stunum{							/*学号*/
+	width: 150px;
+}
+.content{							/*内容*/
+	width: 500px;
+}

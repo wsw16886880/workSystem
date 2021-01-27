@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worksystem.mapper.SchoolTimetableMapper">
+  <resultMap id="BaseResultMap" type="com.worksystem.entity.SchoolTimetable">
+    <id column="stid" jdbcType="INTEGER" property="stid" />
+    <result column="stgid" jdbcType="INTEGER" property="stgid" />
+    <result column="stsemester" jdbcType="INTEGER" property="stsemester" />
+    <result column="stfile" jdbcType="VARCHAR" property="stfile" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stid, stgid, stsemester, stfile
+  </sql>
+  <select id="selectByExample" parameterType="com.worksystem.entity.SchoolTimetableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from school_timetable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from school_timetable
+    where stid = #{stid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from school_timetable
+    where stid = #{stid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.worksystem.entity.SchoolTimetableExample">
+    delete from school_timetable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.worksystem.entity.SchoolTimetable">
+    insert into school_timetable (stid, stgid, stsemester, 
+      stfile)
+    values (#{stid,jdbcType=INTEGER}, #{stgid,jdbcType=INTEGER}, #{stsemester,jdbcType=INTEGER}, 
+      #{stfile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worksystem.entity.SchoolTimetable">
+    insert into school_timetable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stid != null">
+        stid,
+      </if>
+      <if test="stgid != null">
+        stgid,
+      </if>
+      <if test="stsemester != null">
+        stsemester,
+      </if>
+      <if test="stfile != null">
+        stfile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stid != null">
+        #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="stgid != null">
+        #{stgid,jdbcType=INTEGER},
+      </if>
+      <if test="stsemester != null">
+        #{stsemester,jdbcType=INTEGER},
+      </if>
+      <if test="stfile != null">
+        #{stfile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.worksystem.entity.SchoolTimetableExample" resultType="java.lang.Long">
+    select count(*) from school_timetable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update school_timetable
+    <set>
+      <if test="record.stid != null">
+        stid = #{record.stid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stgid != null">
+        stgid = #{record.stgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stsemester != null">
+        stsemester = #{record.stsemester,jdbcType=INTEGER},
+      </if>
+      <if test="record.stfile != null">
+        stfile = #{record.stfile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update school_timetable
+    set stid = #{record.stid,jdbcType=INTEGER},
+      stgid = #{record.stgid,jdbcType=INTEGER},
+      stsemester = #{record.stsemester,jdbcType=INTEGER},
+      stfile = #{record.stfile,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worksystem.entity.SchoolTimetable">
+    update school_timetable
+    <set>
+      <if test="stgid != null">
+        stgid = #{stgid,jdbcType=INTEGER},
+      </if>
+      <if test="stsemester != null">
+        stsemester = #{stsemester,jdbcType=INTEGER},
+      </if>
+      <if test="stfile != null">
+        stfile = #{stfile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stid = #{stid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worksystem.entity.SchoolTimetable">
+    update school_timetable
+    set stgid = #{stgid,jdbcType=INTEGER},
+      stsemester = #{stsemester,jdbcType=INTEGER},
+      stfile = #{stfile,jdbcType=VARCHAR}
+    where stid = #{stid,jdbcType=INTEGER}
+  </update>
+</mapper>

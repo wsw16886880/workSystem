@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- 设置要扫描的包：只扫描controller包 -->
+    <context:component-scan base-package="com.worksystem.controller"/>
+
+    <!-- 开启spirng对mvc的支持：该自动配置了 处理器映射器 和 处理器适配器 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 过滤静态资源:如果url是静态资源请求，则交给web应用服务器的servlet来处理 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 配置 视图解析器 -->
+    <bean id="internalResourceViewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 配置视图前缀 -->
+        <property name="prefix" value="/"/>
+        <!-- 配置视图后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 配置视图映射 -->
+    <mvc:view-controller path="/EducationCenter/toworkList" view-name="/EducationCenter/Book" />
+
+    <!-- 配置文件上传组件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置文件存储路径 -->
+        <!--        <property name=""-->
+        <!-- 设置文件编码-->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 设置最大上传限制‬ -->
+        <property name="maxUploadSize" value="209715200"/>
+        <!-- 设置缓存大小 -->
+        <property name="maxInMemorySize" value="4096"/>
+        <!-- 上传文件的临时路径 -->
+        <property name="uploadTempDir" value="temp"/>
+    </bean>
+
+    <!--  配置拦截器  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/*"/>
+            <mvc:mapping path="/adminlogin"/>
+            <mvc:mapping path="/adminlogin/*"/>
+            <mvc:exclude-mapping path="/adminlogin/login"/>
+            <bean class="com.worksystem.interceptor.AdminInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/admin/**"/>
+            <mvc:exclude-mapping path="/adminlogin"/>
+            <mvc:exclude-mapping path="/adminlogin/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/wxlogin"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/iamges/**"/>
+            <mvc:exclude-mapping path="/Style/**"/>
+            <mvc:exclude-mapping path="/school_timetable/**"/>
+            <bean class="com.worksystem.interceptor.HomeInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

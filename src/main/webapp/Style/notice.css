@@ -1,0 +1,56 @@
+.title {
+	height: 30px;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.message {
+	height: 20px;
+	line-height: 20px;
+	border-left: hidden;
+	border-right: hidden;
+	text-align: center;
+}
+
+.message span{
+	margin-right: 20px;
+}
+
+.content {
+	text-indent: 2em;
+}
+
+.message_board{
+	margin-top: 100px;
+}
+
+.message_board div{
+	padding: 2.5px 0;
+}
+
+.message_board span{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	background-color: #bed9f0;
+	font-size: 18px;
+}
+
+.page_a a{
+	margin: 0 5px;
+	text-align: center;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-color: #bed9f0;
+}
+
+.page_a span{
+	text-align: center;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-color: #bed9f0;
+}
